@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:util="http://java.sun.com/jsf/composite/components/util"
+            xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      >
+
+
+   <ui:composition>
+     <ui:remove>
+      <!--  guardando o formato da pagina antes de ser substituida pelo component personalizao logo abaixo -->
+      <h:form id="listagem">
+         <p:dataTable 
+                        scrollable="true" 
+                        scrollHeight="200" 
+                        value="#{lancamentoBean.lista}"
+                        var="lancamento"
+                        rowIndexVar="index">
+                        
+            <p:column style="width:15px;">
+               <p:commandLink action="#{lancamentoBean.editar}" update=":edicao">
+                  <h:graphicImage library="imagens" name="editar16.png" />
+                  <f:setPropertyActionListener value="#{lancamento}" target="#{lancamentoBean.editado}" /> 
+               </p:commandLink>
+            </p:column>
+            
+            <p:column style="width:15px;">
+               <p:commandLink action="#{lancamentoBean.excluir}" update=":listagem"
+                              onclick=" if ( ! confirm( 'Confirma a exclusão do lancamento #{lancamento.descricao} ?' )) 
+                            	        return false; ">
+                  <h:graphicImage library="imagens" name="excluir16.png" />
+                  <f:setPropertyActionListener value="#{lancamento}" target="#{lancamentoBean.editado}" />             	        
+               </p:commandLink>
+            </p:column>
+            
+            <p:column style="width:70px;" >
+               <f:facet name="header">Data</f:facet>
+               <h:outputText value="#{lancamento.data}">
+                  <f:convertDateTime pattern="dd/mm/yyyy" dateStyle="medium" />
+               </h:outputText>
+            </p:column>
+            
+            <p:column style="width:370px;">
+                <f:facet name="header">Descrição</f:facet>
+                <h:outputText value="#{lancamento.descricao}" />
+            </p:column>
+            
+            <p:column style="width:60px;">
+               <f:facet name="header">Valor</f:facet>
+               <h:outputText style="color: #{lancamento.categoria.fator gt 0 ? 'green' : 'red' };
+                                    text-align:right; display:block;"
+                             value="#{lancamento.valor}">
+                   <f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+               </h:outputText>
+            </p:column>
+            
+            <p:column style="width:60px;">
+               <f:facet name="header">Saldo</f:facet>
+               <ui:remove>
+               <h:outputText style="color: #{lancamentoBean.saldos[index] gt 0 ? 'green' : 'red'};
+                                    text-align:right; display:block;" 
+                              value="#{lancamentoBean.saldos[index]}">
+                   <f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+               </h:outputText>
+               </ui:remove>
+            </p:column>
+            
+         </p:dataTable>
+      </h:form>
+      </ui:remove>
+      
+      <h:form id="listagem">
+         <util:extrato height="200"
+                      lista="#{lancamentoBean.lista}"
+                     saldos="#{lancamentoBean.saldos}"
+                     larguraDescricao="370"
+                     botaoExclusao="true"
+                     botaoEdicao="true"
+                     colunaSaldo="true" />
+      </h:form>
+   </ui:composition>
+      
+</html>
+      

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+  <ui:composition template="/template/interna.xhtml">
+     
+     <ui:define name="titulo">Lançamentos</ui:define>
+     
+     <ui:define name="corpo">
+     
+        <ui:include src="/restrito/lancamento/edicao.xhtml" />
+        <br/>
+        <ui:include src="/restrito/lancamento/listagem.xhtml" />
+     
+     </ui:define>
+     
+  </ui:composition>      
+      
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+                                         
+<hibernate-configuration>
+   <session-factory>
+     <!-- configuração da conexao com o banco de dados MySql e dialeto -->
+     <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+          
+     <!-- after created file context.xml, the line below is not more necessary
+     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+     <property name="connection.url">jdbc:mysql://localhost:3307/financeiro?serverTimezone=UTC</property>
+     <property name="connection.username">root</property>
+     <property name="connection.password">root</property>
+     -->
+     <!--  instead add the new lines -->
+     <property name="connection.datasource">java:/comp/env/FinanceiroDB</property>
+     <property name="current_session_context_class">thread</property>
+     
+     <property name="hibernate.hbm2ddl.auto">update</property>
+    
+     <!-- debug configs 
+     <property name="show_sql">true</property>
+     <property name="format_sql">true</property>
+     -->
+     <!-- 
+     <property name="gerenate_statistics">true</property>
+     <property name="use_sql_comments">true</property>
+      -->
+     <!-- Mapeando classes  -->
+     <mapping class="br.com.javaparaweb.financeiro.usuario.Usuario"/>
+     <mapping class="br.com.javaparaweb.financeiro.conta.Conta"/>
+     <mapping class="br.com.javaparaweb.financeiro.categoria.Categoria"/>
+     <mapping class="br.com.javaparaweb.financeiro.cheque.Cheque"/>
+     <mapping class="br.com.javaparaweb.financeiro.lancamento.Lancamento" />
+     <mapping class="br.com.javaparaweb.financeiro.bolsa.acao.Acao" />
+      
+   </session-factory>
+</hibernate-configuration>
