@@ -7,11 +7,14 @@
 	<http>
 
 		<intercept-url pattern="/admin/**" access="ROLE_ADMINISTRADOR" />
+		
+		<intercept-url pattern="/publico/logout*" access="ROLE_USUARIO" />
+		<logout />
+		
 		<intercept-url pattern="/restrito/**" access="ROLE_USUARIO" />
 		<form-login login-page="/publico/login.jsf"
 			always-use-default-target="true" default-target-url="/restrito/principal.jsf"
 			authentication-failure-url="/publico/login.jsf?login_error=1" />
-		<logout/>
 		<remember-me />
 	</http>
 
